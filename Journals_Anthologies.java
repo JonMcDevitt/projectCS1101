@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-public class Journals_Anthologies {
+public class Journals_Anthologies 
+{
 	
 	private String volume;
 	private String issue;
@@ -11,7 +12,8 @@ public class Journals_Anthologies {
 	{
 		
 	}
-	public Journals_Anthologies(String volume, String issue, String editor, String title, ArrayList<String> contributor){
+	public Journals_Anthologies(String volume, String issue, String editor, String title, ArrayList<String> contributor)
+	{
 		this.volume = volume;
 		this.issue = issue;
 		this.editor = editor;
