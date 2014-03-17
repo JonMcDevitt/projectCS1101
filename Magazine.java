@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 
 public class Magazine {
-	private int ISBN;
+	private String ISBN;
 	private String title;
-	private int issue;
+	private String issue;
 	private String language; // enum???
 	private ArrayList<String> contributingWriters; // ArrayList??
-	public enum Languages{english, portuguese, chinese, french};
-	public Languages lang;
+	public String languages;
 	
 	public Magazine()
 	{
@@ -68,8 +67,8 @@ public class Magazine {
 		return language;
 	}
 	
-	public ArrayList<String> getContributingWriters()
+	public String getContributingWriters()
 	{
-		return contributingWriters;
+		return contributingWriters.toString();
 	}
 }
