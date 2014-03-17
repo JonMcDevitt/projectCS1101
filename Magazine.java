@@ -13,7 +13,7 @@ public class Magazine {
 		
 	}
 	
-	public Magazine(int ISBN, String title, int issue, String language, ArrayList<String> contributingWriters)
+	public Magazine(String ISBN, String title, String issue, String language, ArrayList<String> contributingWriters)
 	{
 		this.ISBN = ISBN;
 		this.title = title;
@@ -22,7 +22,7 @@ public class Magazine {
 		this.contributingWriters = contributingWriters; // deep or shallow copy?
 	}
 	
-	public void setISBN(int ISBN)
+	public void setISBN(String ISBN)
 	{
 		this.ISBN = ISBN;
 	}
@@ -32,7 +32,7 @@ public class Magazine {
 		this.title = title;
 	}
 	
-	public void setIssue(int issue)
+	public void setIssue(String issue)
 	{
 		this.issue = issue;
 	}
@@ -47,7 +47,7 @@ public class Magazine {
 		this.contributingWriters = contributingWriters;
 	}
 	
-	public int getISBN()
+	public String getISBN()
 	{
 		return ISBN;
 	}
@@ -57,7 +57,7 @@ public class Magazine {
 		return title;
 	}
 	
-	public int getIssue()
+	public String getIssue()
 	{
 		return issue;
 	}
