@@ -1,4 +1,8 @@
 
-public class Librarian extends User{
-	private boolean userType;
+public class Librarian extends User
+{
+	public Librarian(String name, String id, String passwd)
+	{
+		super(name, id, passwd);
+	}
 }
