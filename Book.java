@@ -69,4 +69,9 @@ public class Book {
 	{
 		return language;
 	}
+	
+	public String toString()
+	{
+		return "[" + ISBN + ", " + author + ", " + title + ", " + edition + ", " + genre + ", " + language + "]"; 
+	}
 }
