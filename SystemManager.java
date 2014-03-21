@@ -15,6 +15,8 @@ public class SystemManager {
 	public SystemManager(Library library)
 	{
 		this.library = library;
+		generalUsers = new ArrayList<GeneralUser>();
+		librarians = new ArrayList<Librarian>();
 		generalUser = null;
 		librarian = null;
 	}
