@@ -10,7 +10,7 @@ public class Book {
 	public Book()
 	{
 	}
-	public Book(String i, String a, String t, String e, String g, String l) //int i?
+	public Book(String i, String a, String t, String e, String g, String l)
 	{ //add in an isValid method and a corresponding while loop
 		ISBN=i;
 		author=a;
@@ -74,4 +74,5 @@ public class Book {
 	{
 		return "[" + ISBN + ", " + author + ", " + title + ", " + edition + ", " + genre + ", " + language + "]"; 
 	}
+	
 }

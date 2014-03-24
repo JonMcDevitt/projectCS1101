@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class SystemManager {
 	
 	private Library library;
-	private ArrayList<Librarian> librarians;
-	private ArrayList<GeneralUser> generalUsers;
+	private ArrayList<Librarian> allLibrarians;		// stores all registered Librarians
+	private ArrayList<GeneralUser> allGeneralUsers;	// stores all registered GeneralUsers
 	GeneralUser generalUser;						// stores the logged in GeneralUser. It is null if no user is logged in
 	Librarian librarian;							// stores the logged in Librarian. It is null if no librarian is logged in
 	
@@ -15,8 +15,10 @@ public class SystemManager {
 	public SystemManager(Library library)
 	{
 		this.library = library;
-		generalUsers = new ArrayList<GeneralUser>();
-		librarians = new ArrayList<Librarian>();
+		allGeneralUsers = new ArrayList<GeneralUser>();
+		allLibrarians = new ArrayList<Librarian>();
+		
+		// set to no generalUser or librarian logged in
 		generalUser = null;
 		librarian = null;
 	}
@@ -26,24 +28,24 @@ public class SystemManager {
 		this.library = library;
 	}
 	
-	public String getLibrarians()
+	public String getallLibrarians()
 	{
-		return "" + librarians;
+		return "" + allLibrarians;
 	}
 	
-	public String getGeneralUsers()
+	public String getallGeneralUsers()
 	{
-		return "" + generalUsers;
+		return "" + allGeneralUsers;
 	}
 	
 	public int addGeneralUser(String name, String id, String passwd)
 	/* Try do add new GeneralUser
 	 * Return values:
+	 *  0: new GeneralUser added successfully
 	 * -1: logged in user is not a librarian
 	 * -2: invalid id
 	 * -3: id already exists 
 	 * -4: invalid password
-	 * 	0: new GeneralUser added successfully
 	 */
 	{
 		if(librarian == null)
@@ -64,7 +66,7 @@ public class SystemManager {
 					return -4;
 				else
 				{
-					generalUsers.add(newGeneralUser);
+					allGeneralUsers.add(newGeneralUser);
 					return 0;
 				}
 			}		
@@ -74,11 +76,11 @@ public class SystemManager {
 	public int addLibrarian(String name, String id, String passwd)
 	/* Try do add new Librarian
 	 * Return values:
+	 *  0: new Librarian added successfully
 	 * -1: logged in user is not a librarian
 	 * -2: invalid id
 	 * -3: id already exists 
 	 * -4: invalid password
-	 * 	0: new Librarian added successfully
 	 */
 	{
 		if(librarian == null)
@@ -99,7 +101,7 @@ public class SystemManager {
 					return -4;
 				else
 				{
-					librarians.add(newLibrarian);
+					allLibrarians.add(newLibrarian);
 					return 0;
 				}
 			}		
@@ -116,20 +118,25 @@ public class SystemManager {
 	 * -3: Password invalid
 	 */
 	{
+		// index of GeneralUser with id 'id'
 		int index;
 		
+		// check if there is another user logged in, otherwise try do log in
 		if(generalUser != null || librarian != null)
 			return -1;
 		else
 		{
+			// get user's index
 			index = findGeneralUser(userId);
+			
+			// check if user does not exist and password is invalid, otherwise logs user
 			if(index == -1)
 				return -2;
-			else if(!generalUsers.get(index).getPassword().equals(password))
+			else if(!allGeneralUsers.get(index).getPassword().equals(password))
 				return -3;
 			else
 			{
-				generalUser = generalUsers.get(index);
+				generalUser = allGeneralUsers.get(index);
 				return 0;
 			}
 		}
@@ -145,20 +152,25 @@ public class SystemManager {
 	 * -3: Password invalid
 	 */
 	{
+		// index of GeneralUser with id 'id'
 		int index;
 		
+		// check if there is another user logged in, otherwise try do log in
 		if(generalUser != null || librarian != null)
 			return -1;
 		else
 		{
+			// get user's index
 			index = findLibrarian(librarianId);
+			
+			// check if user does not exist and password is invalid, otherwise logs user
 			if(index == -1)
 				return -2;
-			else if(!librarians.get(index).getPassword().equals(password))
+			else if(!allLibrarians.get(index).getPassword().equals(password))
 				return -3;
 			else
 			{
-				librarian = librarians.get(index);
+				librarian = allLibrarians.get(index);
 				return 0;
 			}
 		}
@@ -183,34 +195,38 @@ public class SystemManager {
 	}
 	
 	public int findGeneralUser(String id)
-	/*
-	 * Search for GeneralUser with id 'id'
+	/* Search for GeneralUser with id 'id'
 	 * Return values:
 	 * -1: GeneralUser not found
 	 *  i: index of GeneralUser
 	 */
 	{
-		for(int i = 0; i < generalUsers.size(); i++)
+		for(int i = 0; i < allGeneralUsers.size(); i++)
 		{
-			if(generalUsers.get(i).getUserID().equals("id"))
+			if(allGeneralUsers.get(i).getUserID().equals("id"))
 				return i;
 		}
 		return -1;
 	}
 	
 	public int findLibrarian(String id)
-	/*
-	 * Search for Librarian with id 'id'
+	/* Search for Librarian with id 'id'
 	 * Return values:
 	 * -1: Librarian not found
 	 *  i: index of Librarian
 	 */
 	{
-		for(int i = 0; i < librarians.size(); i++)
+		for(int i = 0; i < allLibrarians.size(); i++)
 		{
-			if(librarians.get(i).getUserID().equals("id"))
+			if(allLibrarians.get(i).getUserID().equals("id"))
 				return i;
 		}
 		return -1;
+	}
+	
+	public ArrayList<Book> searchBook(String ISBN, String author, String title, String edition, String language, String genre)
+	// not sure if returns String or ArrayList<Book>;
+	{
+		return library.searchBook(ISBN, author, title, edition, language, genre);
 	}
 }
