@@ -8,7 +8,7 @@ public class BookFactory
 	{
 	}
 	
-	public Book[] createBooks() throws IOException
+	public ArrayList<Book> createBooks() throws IOException
 	{
 		ArrayList<Book> books = new ArrayList<Book>();
 		
@@ -32,13 +32,39 @@ public class BookFactory
 		
 		inputFile.close();
 		
-		Book[] allBooks = new Book[books.size()];
+		return books;
+	}
+	
+	public ArrayList<Magazine> createMagazines() throws IOException
+	{
+		ArrayList<Magazine> magazines = new ArrayList<Magazine>();
 		
-		for(int i = 0; i < books.size(); i++)
+		File file = new File("magazines.m");
+		
+		Scanner inputFile = new Scanner(file);
+		
+		while(inputFile.hasNext())
 		{
-			allBooks[i] = books.get(i);
+			String line = inputFile.nextLine();
+			if(line.equals("#"))
+			{
+				ArrayList<String> contributingWriters = new ArrayList<String>();
+				String[] temp = new String[4];
+				for(int i = 0; i < 4; i++)
+				{
+					temp[i] = inputFile.nextLine();
+				}
+				String str;
+				while(inputFile.hasNext() && !(str = inputFile.nextLine()).contains("#"))
+				{
+					contributingWriters.add(str);
+				}
+				magazines.add(new Magazine(temp[0], temp[1], temp[2], temp[3], contributingWriters));
+			}
 		}
 		
-		return allBooks;
+		inputFile.close();
+		
+		return magazines;
 	}
 }

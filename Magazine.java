@@ -70,4 +70,9 @@ public class Magazine {
 	{
 		return contributingWriters.toString();
 	}
+	
+	public String toString()
+	{
+		return "[" + ISBN + "," + title + "," + issue + "," + language + "," + contributingWriters + "]";
+	}
 }

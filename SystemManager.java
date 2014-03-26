@@ -224,9 +224,25 @@ public class SystemManager {
 		return -1;
 	}
 	
-	public ArrayList<Book> searchBook(String ISBN, String author, String title, String edition, String language, String genre)
+	public String searchBook(String userInput, String option)
+	// not sure if returns String or ArrayList<Book>;
+	{
+		return library.searchBook(userInput, option);
+	}
+	
+	/*public String searchMagazine(String userInput, String option)
+	// not sure if returns String or ArrayList<Book>;
+	{
+		return library.searchMagazine(userInput, option);
+	}*/
+	
+	
+	
+	
+	
+	/*public ArrayList<Book> searchBook(String ISBN, String author, String title, String edition, String language, String genre)
 	// not sure if returns String or ArrayList<Book>;
 	{
 		return library.searchBook(ISBN, author, title, edition, language, genre);
-	}
+	}*/
 }

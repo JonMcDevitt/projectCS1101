@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.io.*;
 
 public class Library {
 	//the following may not even be necessary; I'll check with Srini
@@ -13,7 +13,8 @@ public class Library {
 	public Library(){
 		
 	}
-	public Library(int b){
+	public Library(int b) throws IOException
+	{
 		bookCapacity = b;
 		allSections = new Section[1];
 		
@@ -26,14 +27,51 @@ public class Library {
 		return bookCapacity;
 	}
 	
-	public ArrayList<Book> searchBook(String ISBN, String author, String title, String edition, String language, String genre)
+	public String searchBook(String userInput, String option)
 	{
-		ArrayList<Book> books = new ArrayList<Book>();
-		for(int i = 0; i < allSections.length; i++)
+		String books = "";
+		
+		if(option.equals("Genre"))
 		{
-			if(allSections[i].getGenre().equals(genre))
-				books = allSections[i].findBook(ISBN, author, title, edition, language);
+			for(int i = 0; i < allSections.length; i++)
+			{
+				if(allSections[i].getGenre().equals(option))
+					books = allSections[i].getAllBooks();
+			}
 		}
+		else if(option.equals("Author"))
+		{
+			// search for books by Author's name on each Section
+			for(int i = 0; i < allSections.length; i++)
+			{
+				books += allSections[i].findBookByAuthor(userInput);
+			}
+		}
+		// search for books by Title's name on each Section
+		else if(option.equals("Title"))
+		{
+			for(int i = 0; i < allSections.length; i++)
+			{
+				books += allSections[i].findBookByTitle(userInput);
+		
+			}
+		}
+		
 		return books;
 	}
+	
+	/*public String searchMagazine(String userInput, String option)
+	{
+		String magazines = "";
+		
+		if(option.equals("Title"))
+		{
+			for(int i = 0; i < allSections.length; i++)
+			{
+				if(allSections[i].getGenre().equals(option))
+					magazines = allSections[i].getAllBooks();
+			}
+		}
+		return magazines;
+	}*/
 }

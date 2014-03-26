@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.io.*;
 
 public class Section 
 {
@@ -8,12 +9,15 @@ public class Section
 	private ArrayList<Magazine> allMagazines;
 	private ArrayList<Newspapers> allNewsPapers;
 	
-	public Section(String genre)
+	public Section(String genre) throws IOException
 	{
+		BookFactory factory= new BookFactory();
+		
+		
 		this.genre = genre;
-		allBooks = new ArrayList<Book>();
+		allBooks = factory.createBooks();
 		allJournals_Anthologies = new ArrayList<Journals_Anthologies>();
-		allMagazines = new ArrayList<Magazine>();
+		allMagazines = factory.createMagazines();
 		allNewsPapers = new ArrayList<Newspapers>();
 	}
 	
@@ -27,6 +31,10 @@ public class Section
 		return genre;
 	}
 	
+	public String getAllBooks()
+	{
+		return allBooks.toString();
+	}
 	public void addBook(Book book)
 	{
 		allBooks.add(book);
@@ -47,7 +55,7 @@ public class Section
 		allNewsPapers.add(newsPaper);
 	}
 	
-	private Book findBookByISBN(String ISBN)
+	public Book findBookByISBN(String ISBN)
 	// search for book with the specific ISBN
 	{
 		for(int i = 0; i < allBooks.size(); i++)
@@ -58,7 +66,7 @@ public class Section
 		return null;
 	}
 	
-	private ArrayList<Book> findBookByAuthor(String author)
+	public ArrayList<Book> findBookByAuthor(String author)
 	// search for books with specific author and return only one occurrence of each of them
 	{
 		// not sure if return ArrayList or String
@@ -71,7 +79,7 @@ public class Section
 		return books;
 	}
 	
-	private ArrayList<Book> findBookByTitle(String title)
+	public ArrayList<Book> findBookByTitle(String title)
 	// search for books with specific title and return only one occurrence of each of them
 	{
 		// not sure if return ArrayList or String
@@ -84,76 +92,16 @@ public class Section
 		return books;
 	}
 	
-	public ArrayList<Book> findBook(String ISBN, String author, String title, String edition, String language)
-	/* 
-	 * Try to find book with more than one refinements. 'author' or 'title' or both must be not null
-	 * Return value:
-	 * book: ArrayList<Book> with books matched by the refinement
-	 */
+	public ArrayList<Magazine> findMagazineByTitle(String title)
+	// search for magazines with specific title and return only one occurrence of each of them
 	{
-		// books found by Author
-		ArrayList<Book> booksAuthor = new ArrayList<Book>();
-		
-		// books found by Title
-		ArrayList<Book> booksTitle = new ArrayList<Book>();
-		
-		// books to return
-		ArrayList<Book> books = new ArrayList<Book>();
-		
-		if(ISBN != null)
+		// not sure if return ArrayList or String
+		ArrayList<Magazine> magazines = new ArrayList<Magazine>();
+		for(int i = 0; i < allBooks.size(); i++)
 		{
-			books.add(findBookByISBN(ISBN));
-			return books;
+			if(allMagazines.get(i).getTitle().equals(title) && !magazines.contains(allMagazines.get(i))) // not sure if the second expression works
+				magazines.add(allMagazines.get(i));
 		}
-			
-		/* if author and title are not null, then find books with same author and title.
-		 * Otherwise, check which one is not null
-		 */
-		if(author != null && title != null)
-		{
-			// get books found by author
-			booksAuthor = findBookByAuthor(author);
-			
-			// get books found by title
-			booksTitle = findBookByTitle(title);
-			
-			// search for books with same author and title
-			for(int i = 0; i < booksAuthor.size(); i++)
-			{
-				Book book = booksAuthor.get(i);
-				for(int j = 0; j < booksTitle.size(); j++)
-				{
-					if(book.equals(booksTitle.get(j))) // not sure if it works, maybe it should compare authors and titles instead
-						books.add(book);
-				}
-			}
-		}
-		else if(author != null)
-				books = findBookByAuthor(author);
-		else 
-			books = findBookByTitle(title);
-		
-		// remove books with different edition of 'edition' parameter
-		if(edition != null)
-		{
-			for(int i = books.size() - 1; i >= 0; i--)
-			{
-				if(!books.get(i).getEdition().equals(edition))
-					books.remove(i);
-			}
-		}
-		
-		// remove books with different language of 'language' parameter
-		if(language != null)
-		{
-			for(int i = books.size() - 1; i >= 0; i--)
-			{
-				if(!books.get(i).getLanguage().equals(language))
-					books.remove(i);
-			}
-		}
-		
-		return books;
+		return magazines;
 	}
-	
 }
