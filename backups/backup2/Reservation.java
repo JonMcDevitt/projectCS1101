@@ -1,5 +1,5 @@
 
-public abstract class Reservation {
+public class Reservation {
 	private String dateReserved;
 	private String dateDue;
 	

@@ -3,19 +3,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import java.io.*;
-
 public class SystemManager {
 	
 	private Library library;
 	private ArrayList<Librarian> allLibrarians;		// stores all registered Librarians
-	private ArrayList<GeneralUser> allGeneralUsers; //stores all registered GeneralUsers
+	private ArrayList<GeneralUser> allGeneralUsers;	// stores all registered GeneralUsers
 	GeneralUser generalUser;						// stores the logged in GeneralUser. It is null if no user is logged in
 	Librarian librarian;							// stores the logged in Librarian. It is null if no librarian is logged in
 	
-	public SystemManager() throws IOException
+	public SystemManager()
 	{
-		library = new Library(20000);
+	}
+	
+	public SystemManager(Library library)
+	{
+		this.library = library;
 		allGeneralUsers = new ArrayList<GeneralUser>();
 		allLibrarians = new ArrayList<Librarian>();
 		
@@ -119,9 +121,9 @@ public class SystemManager {
 	 * -3: Password invalid
 	 */
 	{
-		if(userType == "GeneralUser")
+		if(userID == "GeneralUser")
 			return loginGeneralUser(userID, password);
-		else if(userType == "Librarian")
+		else if(userID == "Librarian")
 			return loginLibrarian(userID, password);
 		
 		return -2; 
@@ -279,7 +281,7 @@ public class SystemManager {
 		book.setDateDue(dueDate);
 		
 		//add book to user's list of reserved books
-		generalUser.reserveItem(book);
+		//generalUser.addReservedBook(book);???? need to be implemented
 		
 	}
 	

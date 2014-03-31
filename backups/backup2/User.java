@@ -56,6 +56,5 @@ public class User{
 		for (int i=0; i<reservations.size(); i++){
 			message += reservations.get(i).toString() + "\n";
 		}
-		return message;
 	}
 }

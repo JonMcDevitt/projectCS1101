@@ -31,9 +31,9 @@ public class Section
 		return genre;
 	}
 	
-	public ArrayList<Book> getAllBooks()
+	public String getAllBooks()
 	{
-		return allBooks;
+		return allBooks.toString();
 	}
 	public void addBook(Book book)
 	{

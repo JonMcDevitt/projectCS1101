@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class Newspapers extends Reservation {
+public class Newspapers {
 	private String company;
 	private String paperDate;
 	private String newsDate;

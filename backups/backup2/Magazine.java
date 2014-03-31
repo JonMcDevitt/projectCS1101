@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Magazine extends Reservation{
+public class Magazine {
 	private String ISBN;
 	private String title;
 	private String issue;

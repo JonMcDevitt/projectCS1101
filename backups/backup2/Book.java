@@ -1,4 +1,4 @@
-public class Book extends Reservation{
+public class Book {
 	private String ISBN;
 	private String author;
 	private String title;
