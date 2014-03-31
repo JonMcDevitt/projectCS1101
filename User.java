@@ -1,8 +1,9 @@
-
+import java.util.ArrayList;
 public class User{
 	private String name;
 	private String userID;
 	private String password;
+	private ArrayList <Object> reservations;
 	
 	public User(){
 		
@@ -11,6 +12,7 @@ public class User{
 		name = n;
 		userID = u;
 		password = p; //check if PW has numeric characters
+		reservations = new ArrayList <Object>();
 	}
 	
 	public void setName(String n)
@@ -45,5 +47,14 @@ public class User{
 	public boolean passwordIsValid()
 	{
 		return true; // delete afterward
+	}
+	public void reserveItem(Object a){
+		reservations.add(a);
+	}
+	public String printReservationList(){
+		String message = "";
+		for (int i=0; i<reservations.size(); i++){
+			message += reservations.get(i).toString() + "\n";
+		}
 	}
 }
