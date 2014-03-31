@@ -51,4 +51,7 @@ public class Newspapers {
 			return journalists.toString();
 		}
 	}
+	public String toString(){
+		return company + "\nDate: " + paperDate; 
+	}
 }

@@ -72,7 +72,7 @@ public class Book {
 	
 	public String toString()
 	{
-		return "[" + ISBN + ", " + author + ", " + title + ", " + edition + ", " + genre + ", " + language + "]"; 
+		return "ISBN: " + ISBN + "\nAuthor: " + author + "\nTitle: " + title + "\nEdition: " + edition + "\nGenre: " + genre + "\nLanguage: " + language + "]"; 
 	}
 	
 }
