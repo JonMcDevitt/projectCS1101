@@ -1,13 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Scanner;
 public class LoginGUI extends JFrame implements ActionListener
 {
 	private JPanel panel;
 	private JRadioButton lib, user;
 	private JLabel areyou, username, password;
-	private JTextField userinput, pwinput;
+	private JTextField userinput;
+	private JPasswordField pwinput;
 	private JButton login;
 	
 	public LoginGUI()
@@ -20,8 +20,7 @@ public class LoginGUI extends JFrame implements ActionListener
 		password= new JLabel("Password");
 		userinput= new JTextField(30);
 		userinput.setEditable(true);
-		pwinput= new JTextField(30);
-		pwinput.setEditable(true);
+		pwinput= new JPasswordField(30);
 		login= new JButton("Log In");
 		login.setBackground(Color.GREEN);
 		login.setOpaque(true); //for mac
