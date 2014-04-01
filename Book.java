@@ -71,7 +71,8 @@ public class Book extends Reservation{
 
 	public String toString()
 	{
-		return "ISBN: " + ISBN + "\nAuthor: " + author + "\nTitle: " + title + "\nEdition: " + edition + "\nGenre: " + genre + "\nLanguage: " + language + "]"; 
+		return "ISBN: " + ISBN + "\nAuthor: " + author + "\nTitle: " + title + "\nEdition: " + edition + "\nGenre: " + 
+				genre + "\nLanguage: " + language + "\nReservation date: " + this.getDateReserved() + "\nDue date: " + this.getDateDue(); 
 	}
 
 }

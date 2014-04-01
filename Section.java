@@ -11,7 +11,7 @@ public class Section
 	
 	public Section(String genre) throws IOException
 	{
-		BookFactory factory= new BookFactory();
+		Factory factory= new Factory();
 		
 		
 		this.genre = genre;

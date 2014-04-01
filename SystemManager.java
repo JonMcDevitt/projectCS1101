@@ -15,99 +15,21 @@ public class SystemManager {
 	
 	public SystemManager() throws IOException
 	{
+		Factory f = new Factory();
+		
 		library = new Library(20000);
-		allGeneralUsers = new ArrayList<GeneralUser>();
-		allLibrarians = new ArrayList<Librarian>();
+		allGeneralUsers = f.createGeneralUsers();
+		allLibrarians = f.createLibrarians();
 		
 		// set to no generalUser or librarian logged in
 		generalUser = null;
 		librarian = null;
 	}
 	
-	public void setLibrary(Library library)
-	{
-		this.library = library;
-	}
-	
-	public String getallLibrarians()
-	{
-		return "" + allLibrarians;
-	}
-	
-	public String getallGeneralUsers()
-	{
-		return "" + allGeneralUsers;
-	}
-	
-	public int addGeneralUser(String name, String id, String passwd)
-	/* Try do add new GeneralUser
-	 * Return values:
-	 *  0: new GeneralUser added successfully
-	 * -1: logged in user is not a librarian
-	 * -2: invalid id (does not match ID pattern)
-	 * -3: id already exists 
-	 * -4: invalid password (does not match password pattern)
+	/*       --------------------------------------------------------------------
+	 *      |                         LOGIN/LOGOUT METHODS                       |
+	 *       --------------------------------------------------------------------
 	 */
-	{
-		if(librarian == null)
-			return -1;
-		else 
-		{
-			GeneralUser newGeneralUser = new GeneralUser(name, id, passwd);
-			if(!newGeneralUser.userIdIsValid())
-				return -2;
-			else 
-			{
-				/* Check whether there is a GeneralUser with same id and/or password is invalid,
-				 * otherwise add new Librarian
-				 */
-				if(findGeneralUser(id) >= 0)
-					return -3;
-				else if(!newGeneralUser.passwordIsValid())
-					return -4;
-				else
-				{
-					allGeneralUsers.add(newGeneralUser);
-					return 0;
-				}
-			}		
-		}
-	}
-	
-	public int addLibrarian(String name, String id, String passwd)
-	/* Try do add new Librarian
-	 * Return values:
-	 *  0: new Librarian added successfully
-	 * -1: logged in user is not a librarian
-	 * -2: invalid id (does not match ID pattern)
-	 * -3: id already exists 
-	 * -4: invalid password (does not match password pattern)
-	 */
-	{
-		if(librarian == null)
-			return -1;
-		else 
-		{
-			Librarian newLibrarian = new Librarian(name, id, passwd);
-			if(!newLibrarian.userIdIsValid())
-				return -2;
-			else 
-			{
-				/* Check whether there is a Librarian with same id and/or password is invalid,
-				 * otherwise add new Librarian
-				 */
-				if(findLibrarian(id) >= 0)
-					return -3;
-				else if(!newLibrarian.passwordIsValid())
-					return -4;
-				else
-				{
-					allLibrarians.add(newLibrarian);
-					return 0;
-				}
-			}		
-		}
-	}
 	
 	public int login(String userID, String password, String userType)
 	/*
@@ -223,7 +145,7 @@ public class SystemManager {
 	{
 		for(int i = 0; i < allGeneralUsers.size(); i++)
 		{
-			if(allGeneralUsers.get(i).getUserID().equals("id"))
+			if(allGeneralUsers.get(i).getUserID().equals(id))
 				return i;
 		}
 		return -1;
@@ -244,6 +166,11 @@ public class SystemManager {
 		return -1;
 	}
 	
+	/*       --------------------------------------------------------------------
+	 *      |                        GENERAL USER METHODS                        |
+	 *       --------------------------------------------------------------------
+	 */
+	
 	public ArrayList<Book> searchBook(String userInput, String option)
 	/* Search book 
 	 * 
@@ -258,69 +185,201 @@ public class SystemManager {
 		return library.searchBook(userInput, option);
 	}
 	
-	public void giveOutBook(Book book)
+	public int reserveBook(Book book)
 	/* Reserve book and add book to user's list of reserved books
 	 * 
 	 * Parameter:
 	 * book: book to be reserved
+	 * 
+	 * Return values:
+	 *  0: book reserved successfully
+	 * -1: user already has 8 books reserved
+	 * -2: user has outstanding fines
 	 */
 	{
-		String dateReserved, dueDate;
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date()); 
-		c.add(Calendar.DATE, 14); // adjust due date by adding 2 weeks of current date
-		
-		dateReserved = sdf.format(Calendar.getInstance().getTime());
-		dueDate = sdf.format(c.getTime());
-		
-		book.setDateReserved(dateReserved);
-		book.setDateDue(dueDate);
-		
-		//add book to user's list of reserved books
-		generalUser.reserveItem(book);
-		
+		if(generalUser.getTotalOfReservations() == 8)
+			return -1;
+		else if(generalUser.getOutstandingFine() > 0.0)
+			return -2;
+		else
+		{
+			
+			String dateReserved, dueDate;
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar c = Calendar.getInstance();
+			c.setTime(new Date()); 
+			//c.add(Calendar.DATE, 14); // adjust due date by adding 2 weeks of current date
+			c.add(Calendar.DATE, -2);
+			
+			dateReserved = sdf.format(Calendar.getInstance().getTime());
+			dueDate = sdf.format(c.getTime());
+			
+			book.setDateReserved(dateReserved);
+			book.setDateDue(dueDate);
+			
+			//add book to user's list of reserved books
+			generalUser.reserveItem(book);
+			
+			return 0;
+			
+		}
 	}
 	
-	public int receiveBook(Book book) throws ParseException
-	/* Receive book and apply fine if it is necessary
+	public boolean payFine(double amount)
+	/* Try to pay user's outstanding fines
+	 * 
+	 * Parameter:
+	 * amount: amount of fine to be paid
+	 * 
+	 * Return values:
+	 * true: fine paid successfully
+	 * false: amount to be paid is greater than total fine
+	 */
+	{
+		if(amount > generalUser.getOutstandingFine())
+			return false;
+		else
+		{
+			generalUser.payFine(amount);
+			return true;
+		}
+	}
+	
+	public int returnBook(String isbn) throws ParseException
+	/* Return book and apply fine if it is necessary
 	 * 
 	 * Parameter:
 	 * book: book to be received
 	 * 
 	 * Return values:
-	 * days:
-	 * 		0:	 					book received at the exact due date
-	 * 		value greater than 0: 	total of days late
-	 * 		value less than 0: 		book received before due date 
+	 * 0:	 					book received at the exact due date
+	 * value greater than 0: 	total of days late
+	 * value less than 0: 		book received before due date 
 	 */
 	{
+		Book book = generalUser.returnBook(isbn);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date dueDate = sdf.parse(book.getDateDue());
-		Date currentDate = Calendar.getInstance().getTime();
+		if(book == null)
+			return -1;
+		else
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date dueDate = sdf.parse(book.getDateDue());
+			Date currentDate = Calendar.getInstance().getTime();
+			
+			int days = (int)(currentDate.getTime() - dueDate.getTime())/ (24 * 60 * 60 * 1000);
+			
+			// apply fine
+			if(days > 0)
+				generalUser.addFine(days); 
+			else
+				days = 0;
+			
+			book.setDateReserved("");
+			book.setDateDue("");
+			
+			return days;
+		}
 		
-		int days = (int)(currentDate.getTime() - dueDate.getTime())/ (24 * 60 * 60 * 1000);
-		
-		// apply fine
-		/*
-		if(days > 0)
-			generalUser.addFine(days); need to be implemented
-		*/
-		
-		book.setDateReserved("");
-		book.setDateDue("");
-		
-		return days;
 		
 	}
 	
-	
-	/*public String searchMagazine(String userInput, String option)
-	// not sure if returns String or ArrayList<Book>;
+	// check status feature????????
+	public GeneralUser getGeneralUser()
 	{
-		return library.searchMagazine(userInput, option);
-	}*/
+		return generalUser;
+	}
 	
+	/*       --------------------------------------------------------------------
+	 *      |                           LIBRARIAN METHODS                        |
+	 *       --------------------------------------------------------------------
+	 */
+	
+	
+	/*       --------------------------------------------------------------------
+	 *      |                           AUXILIARY METHODS                        |
+	 *       --------------------------------------------------------------------
+	 */
+	
+	public String getallLibrarians()
+	{
+		return "" + allLibrarians;
+	}
+	
+	public String getallGeneralUsers()
+	{
+		return "" + allGeneralUsers;
+	}
+	
+	public int addGeneralUser(String name, String id, String passwd)
+	/* Try do add new GeneralUser
+	 * Return values:
+	 *  0: new GeneralUser added successfully
+	 * -1: logged in user is not a librarian
+	 * -2: invalid id (does not match ID pattern)
+	 * -3: id already exists 
+	 * -4: invalid password (does not match password pattern)
+	 */
+	{
+		if(librarian == null)
+			return -1;
+		else 
+		{
+			GeneralUser newGeneralUser = new GeneralUser(name, id, passwd);
+			if(!newGeneralUser.userIdIsValid())
+				return -2;
+			else 
+			{
+				/* Check whether there is a GeneralUser with same id and/or password is invalid,
+				 * otherwise add new Librarian
+				 */
+				if(findGeneralUser(id) >= 0)
+					return -3;
+				else if(!newGeneralUser.passwordIsValid())
+					return -4;
+				else
+				{
+					allGeneralUsers.add(newGeneralUser);
+					return 0;
+				}
+			}		
+		}
+	}
+	
+	public int addLibrarian(String name, String id, String passwd)
+	/* Try do add new Librarian
+	 * Return values:
+	 *  0: new Librarian added successfully
+	 * -1: logged in user is not a librarian
+	 * -2: invalid id (does not match ID pattern)
+	 * -3: id already exists 
+	 * -4: invalid password (does not match password pattern)
+	 */
+	{
+		if(librarian == null)
+			return -1;
+		else 
+		{
+			Librarian newLibrarian = new Librarian(name, id, passwd);
+			if(!newLibrarian.userIdIsValid())
+				return -2;
+			else 
+			{
+				/* Check whether there is a Librarian with same id and/or password is invalid,
+				 * otherwise add new Librarian
+				 */
+				if(findLibrarian(id) >= 0)
+					return -3;
+				else if(!newLibrarian.passwordIsValid())
+					return -4;
+				else
+				{
+					allLibrarians.add(newLibrarian);
+					return 0;
+				}
+			}		
+		}
+	}
 }
+
