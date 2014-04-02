@@ -9,7 +9,7 @@ public class Factory
 	}
 	
 	
-	public ArrayList<Librarian> createLibrarians() throws IOException
+	public static ArrayList<Librarian> createLibrarians() throws IOException
 	{
 		ArrayList<Librarian> librarians = new ArrayList<Librarian>();
 		
@@ -36,7 +36,7 @@ public class Factory
 		return librarians;
 	}
 	
-	public ArrayList<GeneralUser> createGeneralUsers() throws IOException
+	public static ArrayList<GeneralUser> createGeneralUsers() throws IOException
 	{
 		ArrayList<GeneralUser> generalUsers = new ArrayList<GeneralUser>();
 		
@@ -63,7 +63,7 @@ public class Factory
 		return generalUsers;
 	}
 	
-	public ArrayList<Book> createBooks() throws IOException
+	public static ArrayList<Book> createBooks() throws IOException
 	{
 		ArrayList<Book> books = new ArrayList<Book>();
 		
@@ -90,7 +90,7 @@ public class Factory
 		return books;
 	}
 	
-	public ArrayList<Magazine> createMagazines() throws IOException
+	public static ArrayList<Magazine> createMagazines() throws IOException
 	{
 		ArrayList<Magazine> magazines = new ArrayList<Magazine>();
 		

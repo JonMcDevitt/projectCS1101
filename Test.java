@@ -10,19 +10,14 @@ public class Test {
 		al.reserveItem(Teri);
 		al.reserveItem(news);
 		System.out.println(al.printReservationList());
-		
-		
-		
-		
-		SystemManager sys = new SystemManager();
 
-		if(sys.login("aaaaaa", "password", "GeneralUser") == 0)
+		if(SystemManager.login("aaaaaa", "password", "GeneralUser") == 0)
 		{
-			System.out.println(sys.getGeneralUser().getName() + "logged in");
+			System.out.println(SystemManager.getGeneralUser().getName() + " logged in");
 			
-			System.out.println(sys.getGeneralUser().getName() + "is searching for a book by author...");
+			System.out.println(SystemManager.getGeneralUser().getName() + " is searching for a book by author...");
 			// user searches book by author
-			ArrayList<Book> books = sys.searchBook("J R R Tolkien", "Author");
+			ArrayList<Book> books = SystemManager.searchBook("J R R Tolkien", "Author");
 			
 			// user reserves first book found
 			if(books.size() == 0)
@@ -30,22 +25,28 @@ public class Test {
 			else
 			{
 				System.out.println("Book found!");
-				sys.reserveBook(books.get(0));
+				SystemManager.reserveBook(books.get(0));
 				
-				System.out.println(sys.getGeneralUser());
+				System.out.println(SystemManager.getGeneralUser());
 				
 				System.out.println("Returning book...");
 				
-				sys.returnBook("0261103288-9780261103283");
+				SystemManager.returnBook("0261103288-9780261103283");
 				
-				System.out.println(sys.getGeneralUser());
+				System.out.println(SystemManager.getGeneralUser());
 				
 				System.out.println("\nPaying $1 of fines...");
 				
-				sys.payFine(1.0);
+				SystemManager.payFine(1.0);
 				
-				System.out.println(sys.getGeneralUser());
+				System.out.println(SystemManager.getGeneralUser());
 			}
+			
+			System.out.println("Logging out...");
+			if(SystemManager.logout())
+				System.out.println("Logged out successfully");
+			else
+				System.out.println("Failure to logout");
 		}
 		else
 			System.out.println("Fail to log in user");

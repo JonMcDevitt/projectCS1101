@@ -7,31 +7,52 @@ import java.io.*;
 
 public class SystemManager {
 	
-	private Library library;
-	private ArrayList<Librarian> allLibrarians;		// stores all registered Librarians
-	private ArrayList<GeneralUser> allGeneralUsers; //stores all registered GeneralUsers
-	GeneralUser generalUser;						// stores the logged in GeneralUser. It is null if no user is logged in
-	Librarian librarian;							// stores the logged in Librarian. It is null if no librarian is logged in
+	private static Library library;// = new Library(1000);
+	private static ArrayList<Librarian> allLibrarians;// = Factory.createLibrarians();		// stores all registered Librarians
+	private static ArrayList<GeneralUser> allGeneralUsers;// = Factory.createGeneralUsers(); //stores all registered GeneralUsers
+	private static GeneralUser generalUser = null;						// stores the logged in GeneralUser. It is null if no user is logged in
+	private static Librarian librarian = null;							// stores the logged in Librarian. It is null if no librarian is logged in
+	
+	static {
+	     Library temp1 = null;
+	     ArrayList<Librarian> temp2 = null;
+	     ArrayList<GeneralUser> temp3 = null;
+	     try {
+	       temp1 = new Library(1000);
+	       temp2 = Factory.createLibrarians();
+	       temp3 = Factory.createGeneralUsers();
+	     } catch (IOException e) {
+	    	 throw new RuntimeException("Class initialization failed due to IOException", e);
+	     }
+	     library = temp1;
+	     allLibrarians = temp2;
+	     allGeneralUsers = temp3;
+	}
+	
 	
 	public SystemManager() throws IOException
 	{
-		Factory f = new Factory();
+	}
+	
+	/*public SystemManager() throws IOException
+	{
+		//Factory f = new Factory();
 		
-		library = new Library(20000);
-		allGeneralUsers = f.createGeneralUsers();
-		allLibrarians = f.createLibrarians();
+		/*library = new Library(20000);
+		allGeneralUsers = Factory.createGeneralUsers();
+		allLibrarians = Factory.createLibrarians();*/
 		
 		// set to no generalUser or librarian logged in
-		generalUser = null;
+		/*generalUser = null;
 		librarian = null;
-	}
+	}*/
 	
 	/*       --------------------------------------------------------------------
 	 *      |                         LOGIN/LOGOUT METHODS                       |
 	 *       --------------------------------------------------------------------
 	 */
 	
-	public int login(String userID, String password, String userType)
+	public static int login(String userID, String password, String userType)
 	/*
 	 * Try to login user
 	 * Return values:
@@ -49,7 +70,7 @@ public class SystemManager {
 		return -2; 
 	}
 	
-	private int loginGeneralUser(String userId, String password)
+	private static int loginGeneralUser(String userId, String password)
 	/*
 	 * Try to login GeneralUser
 	 * Return values:
@@ -83,7 +104,7 @@ public class SystemManager {
 		}
 	}
 	
-	private int loginLibrarian(String librarianId, String password)
+	private static int loginLibrarian(String librarianId, String password)
 	/*
 	 * Try to login Librarian
 	 * Return values:
@@ -117,7 +138,7 @@ public class SystemManager {
 		}
 	}
 	
-	public boolean logout()
+	public static boolean logout()
 	/* Try to logout user
 	 * Return values:
 	 * false: No user logged in
@@ -136,42 +157,14 @@ public class SystemManager {
 	}
 	
 	
-	public int findGeneralUser(String id)
-	/* Search for GeneralUser with id 'id'
-	 * Return values:
-	 * -1: GeneralUser not found
-	 *  i: index of GeneralUser
-	 */
-	{
-		for(int i = 0; i < allGeneralUsers.size(); i++)
-		{
-			if(allGeneralUsers.get(i).getUserID().equals(id))
-				return i;
-		}
-		return -1;
-	}
 	
-	public int findLibrarian(String id)
-	/* Search for Librarian with id 'id'
-	 * Return values:
-	 * -1: Librarian not found
-	 *  i: index of Librarian
-	 */
-	{
-		for(int i = 0; i < allLibrarians.size(); i++)
-		{
-			if(allLibrarians.get(i).getUserID().equals("id"))
-				return i;
-		}
-		return -1;
-	}
 	
 	/*       --------------------------------------------------------------------
 	 *      |                        GENERAL USER METHODS                        |
 	 *       --------------------------------------------------------------------
 	 */
 	
-	public ArrayList<Book> searchBook(String userInput, String option)
+	public static ArrayList<Book> searchBook(String userInput, String option)
 	/* Search book 
 	 * 
 	 * Parameters:
@@ -185,7 +178,7 @@ public class SystemManager {
 		return library.searchBook(userInput, option);
 	}
 	
-	public int reserveBook(Book book)
+	public static int reserveBook(Book book)
 	/* Reserve book and add book to user's list of reserved books
 	 * 
 	 * Parameter:
@@ -226,7 +219,7 @@ public class SystemManager {
 		}
 	}
 	
-	public boolean payFine(double amount)
+	public static boolean payFine(double amount)
 	/* Try to pay user's outstanding fines
 	 * 
 	 * Parameter:
@@ -246,16 +239,16 @@ public class SystemManager {
 		}
 	}
 	
-	public int returnBook(String isbn) throws ParseException
+	public static int returnBook(String isbn) throws ParseException
 	/* Return book and apply fine if it is necessary
 	 * 
 	 * Parameter:
 	 * book: book to be received
 	 * 
 	 * Return values:
-	 * 0:	 					book received at the exact due date
-	 * value greater than 0: 	total of days late
-	 * value less than 0: 		book received before due date 
+	 *  0: book received at the exact due date
+	 * -1: book not found 					
+	 * value greater than 0: 	total of days late 
 	 */
 	{
 		Book book = generalUser.returnBook(isbn);
@@ -285,34 +278,71 @@ public class SystemManager {
 		
 	}
 	
-	// check status feature????????
-	public GeneralUser getGeneralUser()
+	// to check status ????????
+	public static GeneralUser getGeneralUser()
 	{
 		return generalUser;
 	}
+	
+	
+	
 	
 	/*       --------------------------------------------------------------------
 	 *      |                           LIBRARIAN METHODS                        |
 	 *       --------------------------------------------------------------------
 	 */
 	
+	public static int addBook(Book book)
+	{
+		return 1;//searchBook(book.getISBN())
+	}
 	
 	/*       --------------------------------------------------------------------
 	 *      |                           AUXILIARY METHODS                        |
 	 *       --------------------------------------------------------------------
 	 */
 	
-	public String getallLibrarians()
+	public static int findGeneralUser(String id)
+	/* Search for GeneralUser with id 'id'
+	 * Return values:
+	 * -1: GeneralUser not found
+	 *  i: index of GeneralUser
+	 */
+	{
+		for(int i = 0; i < allGeneralUsers.size(); i++)
+		{
+			if(allGeneralUsers.get(i).getUserID().equals(id))
+				return i;
+		}
+		return -1;
+	}
+	
+	public static int findLibrarian(String id)
+	/* Search for Librarian with id 'id'
+	 * Return values:
+	 * -1: Librarian not found
+	 *  i: index of Librarian
+	 */
+	{
+		for(int i = 0; i < allLibrarians.size(); i++)
+		{
+			if(allLibrarians.get(i).getUserID().equals("id"))
+				return i;
+		}
+		return -1;
+	}
+	
+	public static String getallLibrarians()
 	{
 		return "" + allLibrarians;
 	}
 	
-	public String getallGeneralUsers()
+	public static String getallGeneralUsers()
 	{
 		return "" + allGeneralUsers;
 	}
 	
-	public int addGeneralUser(String name, String id, String passwd)
+	public static int addGeneralUser(String name, String id, String passwd)
 	/* Try do add new GeneralUser
 	 * Return values:
 	 *  0: new GeneralUser added successfully
@@ -347,7 +377,7 @@ public class SystemManager {
 		}
 	}
 	
-	public int addLibrarian(String name, String id, String passwd)
+	public static int addLibrarian(String name, String id, String passwd)
 	/* Try do add new Librarian
 	 * Return values:
 	 *  0: new Librarian added successfully
