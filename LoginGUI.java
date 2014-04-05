@@ -19,7 +19,7 @@ public class LoginGUI extends JFrame implements ActionListener
 		username= new JLabel("Username");
 		password= new JLabel("Password");
 		userinput= new JTextField(30);
-		userinput.setEditable(true);
+		//userinput.setEditable(true);
 		pwinput= new JPasswordField(30);
 		login= new JButton("Log In");
 		login.setBackground(Color.GREEN);
@@ -41,6 +41,7 @@ public class LoginGUI extends JFrame implements ActionListener
 		login.setVisible(false);
 		user.addActionListener(this);
 		lib.addActionListener(this);
+		login.addActionListener(this);
 		setTitle("Login");
 		setSize(400,300);
 		setLocationRelativeTo(null);
@@ -70,6 +71,21 @@ public class LoginGUI extends JFrame implements ActionListener
 			password.setVisible(true);
 			pwinput.setVisible(true);
 			login.setVisible(true);
+		}
+		if(e.getSource() == login)
+		{
+			System.out.println(userinput.getText() + "\t" + pwinput.getText());
+			int result = SystemManager.loginLibrarian(userinput.getText(), pwinput.getText());
+			if(result == -2)
+				JOptionPane.showMessageDialog(this, "User does not exist", "Error", JOptionPane.ERROR_MESSAGE);
+			else if(result == -3)
+				JOptionPane.showMessageDialog(this, "Invalid password", "Error", JOptionPane.ERROR_MESSAGE);
+			else if(result == 0)
+			{
+				JOptionPane.showMessageDialog(this, "User logged in successfully");
+				// set LoginGUI to invisible and open Librarian GUI 
+				
+			}
 		}
 	}
 	//to test

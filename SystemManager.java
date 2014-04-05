@@ -104,7 +104,7 @@ public class SystemManager {
 		}
 	}
 	
-	private static int loginLibrarian(String librarianId, String password)
+	public static int loginLibrarian(String librarianId, String password)
 	/*
 	 * Try to login Librarian
 	 * Return values:
@@ -324,9 +324,11 @@ public class SystemManager {
 	 *  i: index of Librarian
 	 */
 	{
+		
 		for(int i = 0; i < allLibrarians.size(); i++)
 		{
-			if(allLibrarians.get(i).getUserID().equals("id"))
+			String str = allLibrarians.get(i).getUserID();
+			if(allLibrarians.get(i).getUserID().equals(id))
 				return i;
 		}
 		return -1;
