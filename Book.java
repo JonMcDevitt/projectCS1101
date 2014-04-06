@@ -68,6 +68,21 @@ public class Book extends Reservation{
 	{
 		return language;
 	}
+	
+	public boolean isValid()
+	{
+		/*int count = 0;
+		for(int i = 0; i < ISBN.length(); i++)
+		{
+			if(ISBN.charAt(i)!= '-')
+				count++;
+		}
+		if((count == 10) || (count == 13))
+			return true;
+		else
+			return false;*/
+		return true; // delete
+	}
 
 	public String toString()
 	{

@@ -7,9 +7,9 @@ import java.io.*;
 
 public class SystemManager {
 	
-	private static Library library;// = new Library(1000);
-	private static ArrayList<Librarian> allLibrarians;// = Factory.createLibrarians();		// stores all registered Librarians
-	private static ArrayList<GeneralUser> allGeneralUsers;// = Factory.createGeneralUsers(); //stores all registered GeneralUsers
+	private static Library library;
+	private static ArrayList<Librarian> allLibrarians;					// stores all registered Librarians
+	private static ArrayList<GeneralUser> allGeneralUsers; 				//stores all registered GeneralUsers
 	private static GeneralUser generalUser = null;						// stores the logged in GeneralUser. It is null if no user is logged in
 	private static Librarian librarian = null;							// stores the logged in Librarian. It is null if no librarian is logged in
 	
@@ -292,9 +292,36 @@ public class SystemManager {
 	 *       --------------------------------------------------------------------
 	 */
 	
-	public static int addBook(Book book)
+	public static boolean addBook(Book book) throws IOException
+	/* Try to add book
+	 * 
+	 * Parameter:
+	 * book: book to be added
+	 * 
+	 * Return values:
+	 * true: book added successfully
+	 * false: invalid ISBN
+	 */
 	{
-		return 1;//searchBook(book.getISBN())
+		if(!book.isValid())
+			return false;
+		else
+			library.addBook(book);
+			return true;
+	}
+	
+	public static boolean removeBook(String isbn) throws IOException
+	/* Try to remove book
+	 * 
+	 * Parameter:
+	 * isbn: book's isbn of book to be removed
+	 * 
+	 * Return values:
+	 * true: book removed successfully
+	 * false: book not found
+	 */
+	{
+		return library.removeBook(isbn);
 	}
 	
 	/*       --------------------------------------------------------------------
@@ -327,7 +354,6 @@ public class SystemManager {
 		
 		for(int i = 0; i < allLibrarians.size(); i++)
 		{
-			String str = allLibrarians.get(i).getUserID();
 			if(allLibrarians.get(i).getUserID().equals(id))
 				return i;
 		}

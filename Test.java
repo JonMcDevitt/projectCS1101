@@ -53,6 +53,8 @@ public class Test {
 			System.out.println("Fail to log in user");
 		
 		
+		SystemManager.addBook(new Book("ISBN", "Author", "Title", "Edition", "Fiction", "Language"));
+		//System.out.println(SystemManager.removeBook("ISBN"));
 		
 		
 		/*System.out.println(sys.searchBook("J R R Tolkien", "Author"));
