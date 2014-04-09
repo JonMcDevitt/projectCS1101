@@ -25,7 +25,7 @@ public class Files
 					{
 						temp[i] = br.readLine();
 					}
-					books.add(new Book(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]));
+					books.add(new Book(temp[0], temp[1], temp[2], temp[3], temp[4]));
 				}
 			}
 		} catch (IOException e) {

@@ -21,12 +21,12 @@ public class BookFactory
 			String line = inputFile.nextLine();
 			if(line.equals("#"))
 			{
-				String[] temp = new String[6];
-				for(int i = 0; i < 6; i++)
+				String[] temp = new String[5];
+				for(int i = 0; i < 5; i++)
 				{
 					temp[i] = inputFile.nextLine();
 				}
-				books.add(new Book(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]));
+				books.add(new Book(temp[0], temp[1], temp[2], temp[3], temp[4]));
 			}
 		}
 		

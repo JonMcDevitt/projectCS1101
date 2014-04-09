@@ -2,13 +2,13 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-public class LibrarianGUI extends JFrame implements ActionListener{
+public class LibrarianGUI extends JDialog implements ActionListener{
 	private JPanel panel;
 	private JButton addBook, addMag, addNews, addJournal;
 	private JButton removeBook, removeMag, removeNews, removeJournal, logOut;
 	
 	public LibrarianGUI(){
-		panel = new JPanel(new GridLayout(9, 2));
+		panel = new JPanel(new GridLayout(5, 2));
 		addBook = new JButton("Add Book");
 		addMag = new JButton("Add Magazine");
 		addNews = new JButton("Add Newspaper");
@@ -32,7 +32,7 @@ public class LibrarianGUI extends JFrame implements ActionListener{
 		setTitle("Main Menu");
 		setSize(400, 600);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 

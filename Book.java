@@ -2,19 +2,17 @@ public class Book extends Reservation{
 	private String ISBN;
 	private String author;
 	private String title;
-	private String edition;
 	private String genre;
 	private String language;
 
 	public Book()
 	{
 	}
-	public Book(String i, String a, String t, String e, String g, String l)
+	public Book(String i, String a, String t, String g, String l)
 	{ //add in an isValid method and a corresponding while loop
 		ISBN=i;
 		author=a;
 		title=t;
-		edition=e;
 		genre=g;
 		language=l;
 	}
@@ -30,10 +28,6 @@ public class Book extends Reservation{
 	public void setTitle(String t)
 	{
 		title=t;
-	}
-	public void setEdition(String e)
-	{
-		edition=e;
 	}
 	public void setGenre(String g)
 	{
@@ -56,10 +50,6 @@ public class Book extends Reservation{
 	{
 		return title;
 	}
-	public String getEdition()
-	{
-		return edition;
-	}
 	public String getGenre()
 	{
 		return genre;
@@ -71,7 +61,7 @@ public class Book extends Reservation{
 	
 	public boolean isValid()
 	{
-		/*int count = 0;
+		int count = 0;
 		for(int i = 0; i < ISBN.length(); i++)
 		{
 			if(ISBN.charAt(i)!= '-')
@@ -80,13 +70,12 @@ public class Book extends Reservation{
 		if((count == 10) || (count == 13))
 			return true;
 		else
-			return false;*/
-		return true; // delete
+			return false;
 	}
 
 	public String toString()
 	{
-		return "ISBN: " + ISBN + "\nAuthor: " + author + "\nTitle: " + title + "\nEdition: " + edition + "\nGenre: " + 
+		return "ISBN: " + ISBN + "\nAuthor: " + author + "\nTitle: " + title + "\nGenre: " + 
 				genre + "\nLanguage: " + language + "\nReservation date: " + this.getDateReserved() + "\nDue date: " + this.getDateDue(); 
 	}
 

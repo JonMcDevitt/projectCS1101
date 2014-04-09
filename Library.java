@@ -81,7 +81,6 @@ public class Library {
 				outputFile.println(book.getISBN());
 				outputFile.println(book.getAuthor());
 				outputFile.println(book.getTitle());
-				outputFile.println(book.getEdition());
 				outputFile.println(book.getGenre());
 				outputFile.println(book.getLanguage());
 				
