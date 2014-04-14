@@ -8,7 +8,7 @@ public class LoginGUI extends JFrame implements ActionListener
 	private JLabel areyou, username, password;
 	private JTextField userinput;
 	private JPasswordField pwinput;
-	private JButton login;
+	private JButton loginGeneralUser, loginLibrarian;
 	
 	public LoginGUI()
 	{
@@ -21,10 +21,14 @@ public class LoginGUI extends JFrame implements ActionListener
 		userinput= new JTextField(30);
 		//userinput.setEditable(true);
 		pwinput= new JPasswordField(30);
-		login= new JButton("Log In");
-		login.setBackground(Color.GREEN);
-		login.setOpaque(true); //for mac
-		login.setBorderPainted(false);//for mac
+		loginGeneralUser= new JButton("Log In");
+		loginGeneralUser.setBackground(Color.GREEN);
+		loginGeneralUser.setOpaque(true); //for mac
+		loginGeneralUser.setBorderPainted(false);//for mac
+		loginLibrarian= new JButton("Log In");
+		loginLibrarian.setBackground(Color.GREEN);
+		loginLibrarian.setOpaque(true); //for mac
+		loginLibrarian.setBorderPainted(false);//for mac
 		panel.add(areyou);
 		panel.add(lib);
 		panel.add(user);
@@ -32,20 +36,23 @@ public class LoginGUI extends JFrame implements ActionListener
 		panel.add(userinput);
 		panel.add(password);
 		panel.add(pwinput);
-		panel.add(login);
+		panel.add(loginGeneralUser);
+		panel.add(loginLibrarian);
 		add(panel);
 		username.setVisible(false);
 		password.setVisible(false);
 		userinput.setVisible(false);
 		pwinput.setVisible(false);
-		login.setVisible(false);
+		loginGeneralUser.setVisible(false);
+		loginLibrarian.setVisible(false);
 		user.addActionListener(this);
 		lib.addActionListener(this);
-		login.addActionListener(this);
+		loginGeneralUser.addActionListener(this);
+		loginLibrarian.addActionListener(this);
 		setTitle("Login");
 		setSize(400,300);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e)
@@ -59,7 +66,8 @@ public class LoginGUI extends JFrame implements ActionListener
 			userinput.setVisible(true);
 			password.setVisible(true);
 			pwinput.setVisible(true);
-			login.setVisible(true);
+			loginGeneralUser.setVisible(false);
+			loginLibrarian.setVisible(true);
 		}
 		if(e.getSource()==user)
 		{
@@ -70,9 +78,25 @@ public class LoginGUI extends JFrame implements ActionListener
 			userinput.setVisible(true);
 			password.setVisible(true);
 			pwinput.setVisible(true);
-			login.setVisible(true);
+			loginGeneralUser.setVisible(true);
+			loginLibrarian.setVisible(false);
 		}
-		if(e.getSource() == login)
+		if(e.getSource() == loginGeneralUser)
+		{
+			int result = SystemManager.loginGeneralUser(userinput.getText(), pwinput.getText());
+			if(result == -2)
+				JOptionPane.showMessageDialog(this, "User aadoes not exist", "Error", JOptionPane.ERROR_MESSAGE);
+			else if(result == -3)
+				JOptionPane.showMessageDialog(this, "Invalid password", "Error", JOptionPane.ERROR_MESSAGE);
+			else if(result == 0)
+			{
+				JOptionPane.showMessageDialog(this, "User logged in successfully");
+				this.setVisible(false);
+				GeneralUserGUI usergui = new GeneralUserGUI();
+				
+			}
+		}
+		if(e.getSource() == loginLibrarian)
 		{
 			System.out.println(userinput.getText() + "\t" + pwinput.getText());
 			int result = SystemManager.loginLibrarian(userinput.getText(), pwinput.getText());

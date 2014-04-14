@@ -62,10 +62,12 @@ public class User{
 		return true; // delete afterward
 	}
 	
+	// check password pattern
 	public boolean passwordIsValid()
 	{
 		return true; // delete afterward
 	}
+	
 	public void reserveItem(Object a){
 		reservations.add(a);
 	}

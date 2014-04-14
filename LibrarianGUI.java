@@ -27,18 +27,32 @@ public class LibrarianGUI extends JDialog implements ActionListener{
 		panel.add(addJournal);
 		panel.add(removeJournal);
 		panel.add(logOut);
+		addBook.addActionListener(this);
+		removeBook.addActionListener(this);
+		logOut.addActionListener(this);
 		
 		add(panel);
 		setTitle("Main Menu");
 		setSize(400, 600);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
-		
+		if (e.getSource()==addBook){
+			this.setVisible(false);
+			AddBookGUI AddBook = new AddBookGUI();
+		}
+		if (e.getSource()==removeBook){
+			RemoveBookGUI RemoveBook = new RemoveBookGUI();
+		}
+		if (e.getSource()==logOut){
+			SystemManager.logout();
+			JOptionPane.showMessageDialog(this, "Successfully logged out.");
+			LoginGUI login = new LoginGUI();
+			this.setVisible(false);
+		}
 	}
 	
 	public static void main(String[] args){
