@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
-public class SearchFunctionGUI extends JFrame implements ActionListener
+public class SearchFunctionGUI extends JDialog implements ActionListener
 {
 	private JPanel panel;
 	private JTextField searchinput;
@@ -28,7 +28,7 @@ public class SearchFunctionGUI extends JFrame implements ActionListener
 		setTitle("Search");
 		setSize(400,300);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) 

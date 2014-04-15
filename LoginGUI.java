@@ -85,7 +85,7 @@ public class LoginGUI extends JFrame implements ActionListener
 		{
 			int result = SystemManager.loginGeneralUser(userinput.getText(), pwinput.getText());
 			if(result == -2)
-				JOptionPane.showMessageDialog(this, "User aadoes not exist", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "User does not exist", "Error", JOptionPane.ERROR_MESSAGE);
 			else if(result == -3)
 				JOptionPane.showMessageDialog(this, "Invalid password", "Error", JOptionPane.ERROR_MESSAGE);
 			else if(result == 0)

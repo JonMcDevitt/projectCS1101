@@ -2,7 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-public class ReturnBookGUI extends JFrame implements ActionListener
+public class ReturnBookGUI extends JDialog implements ActionListener
 {
 	private JPanel panel;
 	private JLabel isbn;
@@ -36,7 +36,7 @@ public class ReturnBookGUI extends JFrame implements ActionListener
 		setTitle("Return book");
 		setSize(400,300);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e)
