@@ -26,7 +26,7 @@ public class RemoveBookGUI extends JDialog implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
+		if (e.getSource()==)
 	}
 	
 	public static void main(String[] args) {

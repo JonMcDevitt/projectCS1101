@@ -91,7 +91,7 @@ public class LoginGUI extends JFrame implements ActionListener
 			else if(result == 0)
 			{
 				JOptionPane.showMessageDialog(this, "User logged in successfully");
-				this.setVisible(false);
+				this.dispose();
 				GeneralUserGUI usergui = new GeneralUserGUI();
 				
 			}
@@ -107,6 +107,7 @@ public class LoginGUI extends JFrame implements ActionListener
 			else if(result == 0)
 			{
 				JOptionPane.showMessageDialog(this, "User logged in successfully");
+				this.dispose();
 				LibrarianGUI libgui = new LibrarianGUI();
 				
 			}

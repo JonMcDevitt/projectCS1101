@@ -2,7 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-public class GeneralUserGUI extends JFrame implements ActionListener{
+public class GeneralUserGUI extends JDialog implements ActionListener{
 	private JPanel panel;
 	private JButton searchBook, payFine, returnBook, checkStatus, logOut;
 	

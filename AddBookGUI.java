@@ -43,7 +43,7 @@ public class AddBookGUI extends JDialog implements ActionListener{
 		setTitle("Add Book Menu");
 		setSize(300, 150);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	
@@ -57,6 +57,8 @@ public class AddBookGUI extends JDialog implements ActionListener{
 				e1.printStackTrace();
 			}
 			JOptionPane.showMessageDialog(this, "Book added.");
+			this.dispose();
+			LibrarianGUI libgui = new LibrarianGUI();
 		}
 		if (e.getSource()==ReturnToMain){
 			this.setVisible(false);
