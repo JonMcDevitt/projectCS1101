@@ -29,46 +29,50 @@ public class SearchFunctionGUI extends JDialog implements ActionListener
 		setTitle("Search");
 		setSize(400,300);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(/*JDialog*/JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) 
 	{
 		if(e.getSource()==search)
 		{
-			if(select.getSelectedItem().equals("Books") && searchBy.getSelectedItem().equals("Author")){
-				ArrayList <Book> book = SystemManager.searchBook(searchinput.getText(), "Author");
-				SearchBookList booklist = new SearchBookList(book);
-				this.dispose();
-			}
-			else if(select.getSelectedItem().equals("Books") && searchBy.getSelectedItem().equals("Title"))
-				System.out.println("Books and Title selected"); //test, actually go to another GUI/class
-				
-			else if(select.getSelectedItem().equals("Books") && searchBy.getSelectedItem().equals("Genre"))
-				System.out.println("Books and Genre selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("Magazines") && searchBy.getSelectedItem().equals("Author"))
-				System.out.println("Magazines and Author selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("Magazines") && searchBy.getSelectedItem().equals("Title"))
-				System.out.println("Magazines and Title selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("Magazines") && searchBy.getSelectedItem().equals("Genre"))
-				System.out.println("Magazines and Genre selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("NewsPapers") && searchBy.getSelectedItem().equals("Author"))
-				System.out.println("Newspapers and Author selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("NewsPapers") && searchBy.getSelectedItem().equals("Title"))
-				System.out.println("Newspapers and Title selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("NewsPapers") && searchBy.getSelectedItem().equals("Genre"))
-				System.out.println("Newspapers and Genre selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("Journals") && searchBy.getSelectedItem().equals("Author"))
-				System.out.println("Journals and Author selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("Journals") && searchBy.getSelectedItem().equals("Title"))
-				System.out.println("Journals and Title selected"); //test, actually go to another GUI/class
-			else if(select.getSelectedItem().equals("Journals") && searchBy.getSelectedItem().equals("Genre"))
-				System.out.println("Journals and Genre selected"); //test, actually go to another GUI/class
-			else
-				JOptionPane.showMessageDialog(this, "Error: Select valid options.");
-		}
-		if (e.getSource()==main){
+			String userInput, option;
 			
+			userInput = searchinput.getText();
+			option = searchBy.getSelectedItem().toString();
+			if(select.getSelectedItem().equals("Books"))
+			{
+				ArrayList<Book> books = SystemManager.searchBook(userInput, option);
+				if(books == null)
+					System.out.println("error");
+				else
+				{
+					SearchBookList sbl = new SearchBookList(books);
+				}
+				
+			}
+			/*if(select.getSelectedItem().equals("Books") && searchBy.getSelectedItem().equals("Title"))
+				System.out.println("Books and Title selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Books") && searchBy.getSelectedItem().equals("Genre"))
+				System.out.println("Books and Genre selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Magazines") && searchBy.getSelectedItem().equals("Author"))
+				System.out.println("Magazines and Author selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Magazines") && searchBy.getSelectedItem().equals("Title"))
+				System.out.println("Magazines and Title selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Magazines") && searchBy.getSelectedItem().equals("Genre"))
+				System.out.println("Magazines and Genre selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("NewsPapers") && searchBy.getSelectedItem().equals("Author"))
+				System.out.println("Newspapers and Author selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("NewsPapers") && searchBy.getSelectedItem().equals("Title"))
+				System.out.println("Newspapers and Title selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("NewsPapers") && searchBy.getSelectedItem().equals("Genre"))
+				System.out.println("Newspapers and Genre selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Journals") && searchBy.getSelectedItem().equals("Author"))
+				System.out.println("Journals and Author selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Journals") && searchBy.getSelectedItem().equals("Title"))
+				System.out.println("Journals and Title selected"); //test, actually go to another GUI/class
+			if(select.getSelectedItem().equals("Journals") && searchBy.getSelectedItem().equals("Genre"))
+				System.out.println("Journals and Genre selected"); //test, actually go to another GUI/class*/
 		}
 	}
 	//to test
