@@ -60,7 +60,7 @@ public class Book extends Reservation{
 	}
 	
 	public boolean isValid()
-	{
+	{ //check if the book has a valid ISBN number
 		int count = 0;
 		for(int i = 0; i < ISBN.length(); i++)
 		{

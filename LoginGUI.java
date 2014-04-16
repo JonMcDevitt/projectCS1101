@@ -19,7 +19,6 @@ public class LoginGUI extends JFrame implements ActionListener
 		username= new JLabel("Username");
 		password= new JLabel("Password");
 		userinput= new JTextField(30);
-		//userinput.setEditable(true);
 		pwinput= new JPasswordField(30);
 		loginGeneralUser= new JButton("Log In");
 		loginGeneralUser.setBackground(Color.GREEN);
@@ -57,9 +56,9 @@ public class LoginGUI extends JFrame implements ActionListener
 	}
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource()==lib)
+		if(e.getSource()==lib) //if the user clicks librarian
 		{
-			areyou.setVisible(false);
+			areyou.setVisible(false); //open the librarian login screen
 			lib.setVisible(false);
 			user.setVisible(false);
 			username.setVisible(true);
@@ -69,9 +68,9 @@ public class LoginGUI extends JFrame implements ActionListener
 			loginGeneralUser.setVisible(false);
 			loginLibrarian.setVisible(true);
 		}
-		if(e.getSource()==user)
+		if(e.getSource()==user) //if the user clicks user
 		{
-			areyou.setVisible(false);
+			areyou.setVisible(false); //open the user login screen
 			lib.setVisible(false);
 			user.setVisible(false);
 			username.setVisible(true);
@@ -81,34 +80,33 @@ public class LoginGUI extends JFrame implements ActionListener
 			loginGeneralUser.setVisible(true);
 			loginLibrarian.setVisible(false);
 		}
-		if(e.getSource() == loginGeneralUser)
+		if(e.getSource() == loginGeneralUser) //if a general user logs in
 		{
 			int result = SystemManager.loginGeneralUser(userinput.getText(), pwinput.getText());
-			if(result == -2)
+			if(result == -2) //if the user does not exist, say so
 				JOptionPane.showMessageDialog(this, "User does not exist", "Error", JOptionPane.ERROR_MESSAGE);
-			else if(result == -3)
+			else if(result == -3) //if the password is wrong, say so!
 				JOptionPane.showMessageDialog(this, "Invalid password", "Error", JOptionPane.ERROR_MESSAGE);
-			else if(result == 0)
+			else if(result == 0) //if the login is successful
 			{
-				JOptionPane.showMessageDialog(this, "User logged in successfully");
-				this.dispose();
-				GeneralUserGUI usergui = new GeneralUserGUI();
+				JOptionPane.showMessageDialog(this, "User logged in successfully"); //show message
+				this.dispose(); //close window
+				GeneralUserGUI usergui = new GeneralUserGUI(); //open general user GUI
 				
 			}
 		}
-		if(e.getSource() == loginLibrarian)
+		if(e.getSource() == loginLibrarian) //if the librarian logs in
 		{
-			System.out.println(userinput.getText() + "\t" + pwinput.getText());
 			int result = SystemManager.loginLibrarian(userinput.getText(), pwinput.getText());
-			if(result == -2)
+			if(result == -2) //if they don't exist say so
 				JOptionPane.showMessageDialog(this, "User does not exist", "Error", JOptionPane.ERROR_MESSAGE);
-			else if(result == -3)
+			else if(result == -3) //if the password is wrong then say so
 				JOptionPane.showMessageDialog(this, "Invalid password", "Error", JOptionPane.ERROR_MESSAGE);
-			else if(result == 0)
+			else if(result == 0) //if the login is successful
 			{
-				JOptionPane.showMessageDialog(this, "User logged in successfully");
-				this.dispose();
-				LibrarianGUI libgui = new LibrarianGUI();
+				JOptionPane.showMessageDialog(this, "User logged in successfully"); //show message
+				this.dispose(); //close window
+				LibrarianGUI libgui = new LibrarianGUI(); //open Librarian GUI
 				
 			}
 		}

@@ -51,14 +51,13 @@ public class AddBookGUI extends JDialog implements ActionListener{
 		if (e.getSource()==AddBook){
 			Book a = new Book(ISBNInput.getText(), AuthorInput.getText(), TitleInput.getText(), GenreInput.getText(), LanguageInput.getText());
 			try {
-				SystemManager.addBook(a);
+				SystemManager.addBook(a); //add the book to the list
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			JOptionPane.showMessageDialog(this, "Book added.");
-			this.dispose();
-			LibrarianGUI libgui = new LibrarianGUI();
+			this.dispose(); //close this window
+			LibrarianGUI libgui = new LibrarianGUI(); //open the Librarian window
 		}
 		if (e.getSource()==ReturnToMain){
 			this.dispose();

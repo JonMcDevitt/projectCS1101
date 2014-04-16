@@ -49,7 +49,7 @@ public class PayFine extends JDialog implements ActionListener
 		if(e.getSource()== returnMain)
    		{
    			this.dispose(); //close this window
-			GeneralUserGUI usergui = new GeneralUserGUI(); //return them to the main meny
+			GeneralUserGUI usergui = new GeneralUserGUI(); //return them to the main menu
 	   	}
 	}
 	

@@ -34,18 +34,18 @@ public class GeneralUserGUI extends JDialog implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==logOut){
-			SystemManager.logout();
-			JOptionPane.showMessageDialog(this, "User logged out successfully");			
-			this.dispose();
-			LoginGUI login = new LoginGUI();
+			SystemManager.logout(); //log the user out
+			JOptionPane.showMessageDialog(this, "User logged out successfully"); //display message			
+			this.dispose(); //close window
+			LoginGUI login = new LoginGUI(); //create new Login window
 		}
 		if (e.getSource()==returnBook){
-			this.dispose();
-			ReturnBookGUI returnbook = new ReturnBookGUI();
+			this.dispose(); //dispose of this window
+			ReturnBookGUI returnbook = new ReturnBookGUI(); //open the Return Book GUI
 		}
 		if (e.getSource()==searchBook){
-			this.dispose();
-			SearchFunctionGUI searchbook = new SearchFunctionGUI();
+			this.dispose(); //dispose
+			SearchFunctionGUI searchbook = new SearchFunctionGUI(); //open Search function
 		}
 	}
 	

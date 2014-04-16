@@ -13,27 +13,27 @@ public class Factory
 	{
 		ArrayList<Librarian> librarians = new ArrayList<Librarian>();
 		
-		File file = new File("librarians.l");
+		File file = new File("librarians.l"); //create the file
 		
-		Scanner inputFile = new Scanner(file);
+		Scanner inputFile = new Scanner(file); //initialize scanner
 		
 		while(inputFile.hasNext())
 		{
-			String line = inputFile.nextLine();
+			String line = inputFile.nextLine(); //read the file
 			if(line.equals("#"))
 			{
-				String[] temp = new String[3];
+				String[] temp = new String[3]; //initialize a reading array
 				for(int i = 0; i < 3; i++)
 				{
 					temp[i] = inputFile.nextLine();
 				}
-				librarians.add(new Librarian(temp[0], temp[1], temp[2]));
+				librarians.add(new Librarian(temp[0], temp[1], temp[2])); //add the librarian
 			}
 		}
 		
-		inputFile.close();
+		inputFile.close(); //close the file
 		
-		return librarians;
+		return librarians; //return the arraylist
 	}
 	
 	public static ArrayList<GeneralUser> createGeneralUsers() throws IOException

@@ -46,17 +46,17 @@ public class LibrarianGUI extends JDialog implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource()==addBook){
-			this.dispose();
-			AddBookGUI AddBook = new AddBookGUI();
+		if (e.getSource()==addBook){ //if they are adding a book
+			this.dispose(); //close the window
+			AddBookGUI AddBook = new AddBookGUI(); //open relevant GUI
 		}
 		if (e.getSource()==removeBook){
 			this.dispose();
-			RemoveBookGUI RemoveBook = new RemoveBookGUI();
+			RemoveBookGUI RemoveBook = new RemoveBookGUI(); //open removeBook GUI
 		}
 		if (e.getSource()==logOut){
-			SystemManager.logout();
-			JOptionPane.showMessageDialog(this, "Successfully logged out.");
+			SystemManager.logout(); //log the librarian out
+			JOptionPane.showMessageDialog(this, "Successfully logged out."); //show message
 			this.dispose();
 			LoginGUI login = new LoginGUI();
 		}

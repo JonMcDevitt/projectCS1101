@@ -34,7 +34,7 @@ public class Library {
 	
 	public ArrayList<Book> searchBook(String userInput, String option)
 	{
-		ArrayList<Book> books = new ArrayList<Book>();
+		ArrayList<Book> books = new ArrayList<Book>(); //initiate an arraylist
 		
 		// return all books with the specific genre
 		if(option.equals("Genre"))
