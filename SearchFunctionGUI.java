@@ -52,6 +52,10 @@ public class SearchFunctionGUI extends JDialog implements ActionListener
 				
 			}
 		}
+		if (e.getSource()==main){
+			this.dispose();
+			GeneralUserGUI gui = new GeneralUserGUI();
+		}
 	}
 	//to test
 	public static void main(String[] args) 
