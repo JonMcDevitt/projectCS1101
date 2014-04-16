@@ -14,7 +14,7 @@ public class UserStatus extends JFrame implements ActionListener
       int reser = SystemManager.getGeneralUser().getTotalOfReservations();
 		panel=new JPanel();
 		curRes=new JLabel("Current Reservations: "+reser);
-		remRes=new JLabel("Reservations Remaining: "+(reser - 8));
+		remRes=new JLabel("Reservations Remaining: "+(8-reser));
 		curFine=new JLabel("Current Fine: $0");
 		returnMain=new JButton("Return to Main");
 		returnMain.setBackground(Color.RED);
