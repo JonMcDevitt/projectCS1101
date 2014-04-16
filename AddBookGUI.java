@@ -49,7 +49,7 @@ public class AddBookGUI extends JDialog implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (e.getSource()==AddBook){
-			Book a = new Book(ISBNInput.getSelectedText(), AuthorInput.getSelectedText(), TitleInput.getSelectedText(), GenreInput.getSelectedText(), LanguageInput.getSelectedText());
+			Book a = new Book(ISBNInput.getText(), AuthorInput.getText(), TitleInput.getText(), GenreInput.getText(), LanguageInput.getText());
 			try {
 				SystemManager.addBook(a);
 			} catch (IOException e1) {
