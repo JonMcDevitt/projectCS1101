@@ -52,7 +52,7 @@ public class SystemManager {
 	 *       --------------------------------------------------------------------
 	 */
 	
-	//public static int login(String userID, String password, String userType)
+	public static int login(String userID, String password, String userType)
 	/*
 	 * Try to login user
 	 * Return values:
@@ -61,14 +61,14 @@ public class SystemManager {
 	 * -2: User does not exist
 	 * -3: Password invalid
 	 */
-	/*{
+	{
 		if(userType == "GeneralUser")
 			return loginGeneralUser(userID, password);
 		else if(userType == "Librarian")
 			return loginLibrarian(userID, password);
 		
 		return -2; 
-	}*/
+	}
 	
 	public static int loginGeneralUser(String userId, String password)
 	/*
@@ -360,17 +360,17 @@ public class SystemManager {
 		return -1;
 	}
 	
-	/*public static String getallLibrarians()
+	public static String getallLibrarians()
 	{
 		return "" + allLibrarians;
-	}*/
+	}
 	
-	/*public static String getallGeneralUsers()
+	public static String getallGeneralUsers()
 	{
 		return "" + allGeneralUsers;
-	}*/
+	}
 	
-	//public static int addGeneralUser(String name, String id, String passwd)
+	public static int addGeneralUser(String name, String id, String passwd)
 	/* Try do add new GeneralUser
 	 * Return values:
 	 *  0: new GeneralUser added successfully
@@ -379,7 +379,7 @@ public class SystemManager {
 	 * -3: id already exists 
 	 * -4: invalid password (does not match password pattern)
 	 */
-	/*{
+	{
 		if(librarian == null)
 			return -1;
 		else 
@@ -392,7 +392,7 @@ public class SystemManager {
 				/* Check whether there is a GeneralUser with same id and/or password is invalid,
 				 * otherwise add new Librarian
 				 */
-				/*if(findGeneralUser(id) >= 0)
+				if(findGeneralUser(id) >= 0)
 					return -3;
 				else if(!newGeneralUser.passwordIsValid())
 					return -4;
@@ -403,9 +403,9 @@ public class SystemManager {
 				}
 			}		
 		}
-	}*/
+	}
 	
-	//public static int addLibrarian(String name, String id, String passwd)
+	public static int addLibrarian(String name, String id, String passwd)
 	/* Try do add new Librarian
 	 * Return values:
 	 *  0: new Librarian added successfully
@@ -414,7 +414,7 @@ public class SystemManager {
 	 * -3: id already exists 
 	 * -4: invalid password (does not match password pattern)
 	 */
-	/*{
+	{
 		if(librarian == null)
 			return -1;
 		else 
@@ -427,7 +427,7 @@ public class SystemManager {
 				/* Check whether there is a Librarian with same id and/or password is invalid,
 				 * otherwise add new Librarian
 				 */
-				/*if(findLibrarian(id) >= 0)
+				if(findLibrarian(id) >= 0)
 					return -3;
 				else if(!newLibrarian.passwordIsValid())
 					return -4;
@@ -438,6 +438,6 @@ public class SystemManager {
 				}
 			}		
 		}
-	}*/
+	}
 }
 

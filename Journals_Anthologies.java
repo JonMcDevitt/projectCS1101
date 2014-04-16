@@ -44,7 +44,7 @@ public class Journals_Anthologies extends Reservation
 	}
 	
 	//get block
-	public String getVolume()
+	public String getVolue()
 	{
 		return volume;
 	}

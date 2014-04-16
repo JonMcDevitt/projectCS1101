@@ -47,7 +47,7 @@ public class ReturnBookGUI extends JDialog implements ActionListener
 					this.dispose();
 				}
 				else{
-					JOptionPane.showMessageDialog(this, "Error, try again.");
+					JOptionPane.showMessageDialog(this, "Error, enter the correct ISBN.");
 					GeneralUserGUI usergui = new GeneralUserGUI();
 					this.dispose();
 				}

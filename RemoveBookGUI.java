@@ -40,13 +40,11 @@ public class RemoveBookGUI extends JDialog implements ActionListener{
 			try {
 				if (SystemManager.removeBook(ISBNInput.getText())==true){
 					JOptionPane.showMessageDialog(this, "Book returned.");
-					LibrarianGUI libgui = new LibrarianGUI();
-					this.dispose();
+					LibrarianGUI libgui = new LibrarianGUI(); //open new main meny
+					this.dispose(); //close the window
 				}
 				else{
-					JOptionPane.showMessageDialog(this, "Error, try again.");
-					LibrarianGUI libgui = new LibrarianGUI();
-					this.dispose();
+					JOptionPane.showMessageDialog(this, "Error, enter the correct ISBN.");
 				}
 			} catch (HeadlessException e1) {
 				// TODO Auto-generated catch block

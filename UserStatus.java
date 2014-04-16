@@ -5,7 +5,7 @@ public class UserStatus extends JFrame implements ActionListener
 {
 	private JPanel panel;
 	private JLabel curRes;
-   private JLabel remRes;
+	private JLabel remRes;
 	private JLabel curFine;
 	private JButton returnMain;
 	
@@ -37,7 +37,8 @@ public class UserStatus extends JFrame implements ActionListener
 	{
 		if(e.getSource()== returnMain)
    		{
-   			System.out.println("return to main");
+   			this.dispose();
+   			GeneralUserGUI gui = new GeneralUserGUI();
 	   	}
 	}
    
