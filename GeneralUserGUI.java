@@ -47,6 +47,14 @@ public class GeneralUserGUI extends JDialog implements ActionListener{
 			this.dispose(); //dispose
 			SearchFunctionGUI searchbook = new SearchFunctionGUI(); //open Search function
 		}
+		if (e.getSource()==payFine){
+			this.dispose(); //dispose
+			PayFine fine = new PayFine(); //open Search function
+		}
+		if (e.getSource()==checkStatus){
+			this.dispose(); //dispose
+			UserStatus check = new UserStatus(); //open Search function
+		}
 	}
 	
 	public static void main(String[] args){
