@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class PayFine extends JFrame implements ActionListener
+public class PayFine extends JDialog implements ActionListener
 {
 	private JPanel panel;
 	private JLabel fine;
@@ -9,7 +9,6 @@ public class PayFine extends JFrame implements ActionListener
 	private JTextField input;
 	private JButton payFine;
 	private JButton returnMain;
-	private JLabel finePaid;
 	
 	public PayFine()
 	{
@@ -25,32 +24,32 @@ public class PayFine extends JFrame implements ActionListener
 		returnMain.setOpaque(true); //mac
 		returnMain.setBorderPainted(false);//mac
 		returnMain.addActionListener(this);
-		finePaid=new JLabel("Fine Paid.");
-      panel.add(welcome);
+
+		panel.add(welcome);
 		panel.add(fine);
 		panel.add(input);
-      panel.add(payFine);
+		panel.add(payFine);
 		panel.add(returnMain);
-		add(panel);
-		finePaid.setVisible(false);
 		
+		add(panel);			
 		setTitle("Fine Payment");
 		setSize(290,170);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()== payFine)
 		   {
-            //if (input  0)
-		   	finePaid.setVisible(true);
-		   	JOptionPane.showMessageDialog(this, "Thank you!");
+		   	JOptionPane.showMessageDialog(this, "Thank you!"); //return to the main menu
+		   	this.dispose(); //close window
+		   	GeneralUserGUI usergui = new GeneralUserGUI(); //return them to the main menu
 		   }
 		if(e.getSource()== returnMain)
    		{
-   			System.out.println("return to main"); //test
+   			this.dispose(); //close this window
+			GeneralUserGUI usergui = new GeneralUserGUI(); //return them to the main meny
 	   	}
 	}
 	
