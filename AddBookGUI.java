@@ -61,7 +61,7 @@ public class AddBookGUI extends JDialog implements ActionListener{
 			LibrarianGUI libgui = new LibrarianGUI();
 		}
 		if (e.getSource()==ReturnToMain){
-			this.setVisible(false);
+			this.dispose();
 			LibrarianGUI libgui = new LibrarianGUI();
 		}
 	}

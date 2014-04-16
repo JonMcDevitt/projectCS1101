@@ -2,6 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
 public class ReturnBookGUI extends JDialog implements ActionListener
 {
 	private JPanel panel;
@@ -9,7 +10,6 @@ public class ReturnBookGUI extends JDialog implements ActionListener
 	private JTextField input;
 	private JButton returnBook;
 	private JButton returnMain;
-	private JLabel bookReturned;
 	
 	public ReturnBookGUI()
 	{
@@ -24,14 +24,11 @@ public class ReturnBookGUI extends JDialog implements ActionListener
 		returnMain.setOpaque(true); //mac
 		returnMain.setBorderPainted(false);//mac
 		returnMain.addActionListener(this);
-		bookReturned=new JLabel("Book returned.");
 		panel.add(isbn);
 		panel.add(input);
 		panel.add(returnBook);
-		panel.add(bookReturned);
 		panel.add(returnMain);
 		add(panel);
-		bookReturned.setVisible(false);
 		
 		setTitle("Return book");
 		setSize(400,300);
@@ -43,13 +40,26 @@ public class ReturnBookGUI extends JDialog implements ActionListener
 	{
 		if(e.getSource()== returnBook)
 		{
-			bookReturned.setVisible(true);
-			//return book statements
+			try {
+				if (SystemManager.returnBook(input.getText())==0){
+					JOptionPane.showMessageDialog(this, "Book returned.");
+					GeneralUserGUI usergui = new GeneralUserGUI();
+					this.dispose();
+				}
+				else{
+					JOptionPane.showMessageDialog(this, "Error, try again.");
+					GeneralUserGUI usergui = new GeneralUserGUI();
+					this.dispose();
+				}
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		if(e.getSource()== returnMain)
 		{
-			//GeneralUser gu= new GeneralUser;
-			System.out.println("return to main"); //test
+			GeneralUserGUI usergui = new GeneralUserGUI();
+			this.dispose();
 		}
 	}
 	

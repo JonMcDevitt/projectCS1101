@@ -29,6 +29,12 @@ public class LibrarianGUI extends JDialog implements ActionListener{
 		panel.add(logOut);
 		addBook.addActionListener(this);
 		removeBook.addActionListener(this);
+		addMag.addActionListener(this);
+		removeMag.addActionListener(this);
+		addNews.addActionListener(this);
+		removeNews.addActionListener(this);
+		addJournal.addActionListener(this);
+		removeJournal.addActionListener(this);
 		logOut.addActionListener(this);
 		
 		add(panel);
@@ -41,17 +47,18 @@ public class LibrarianGUI extends JDialog implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==addBook){
-			this.setVisible(false);
+			this.dispose();
 			AddBookGUI AddBook = new AddBookGUI();
 		}
 		if (e.getSource()==removeBook){
+			this.dispose();
 			RemoveBookGUI RemoveBook = new RemoveBookGUI();
 		}
 		if (e.getSource()==logOut){
 			SystemManager.logout();
 			JOptionPane.showMessageDialog(this, "Successfully logged out.");
+			this.dispose();
 			LoginGUI login = new LoginGUI();
-			this.setVisible(false);
 		}
 	}
 	
